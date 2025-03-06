@@ -1,12 +1,5 @@
 This is the repository for the group project of team 4.
 
-Project scheduel 
-Project Timeline: Ethical Dark Web Scanner and Analysis Tool   
-Team Members & Roles: 
-Sanket Kamble – Security analysis, scanning tool development, risk assessment.   
-Mark Urbin – Requirements, scanning tool, test environments, and test data sets.   
-Xiangyu Xu – GUI development, dashboard, data analysis.   
- 
 Week-by-Week Plan   
  
 Phase 1: Planning & Research 

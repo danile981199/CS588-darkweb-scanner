@@ -1,0 +1,73 @@
+import React, { useState } from "react";
+import { Card, Button, TextField, Select } from "@mui/material";
+
+
+
+export default function DarkWebScanner() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [account, setAccount] = useState("");
+  const [password, setPassword] = useState("");
+  const [dataset, setDataset] = useState("dataset1");
+  const [scanResults, setScanResults] = useState(null);
+
+  const handleLogin = () => {
+    if (account && password) {
+      setLoggedIn(true);
+    }
+  };
+
+  const handleScan = () => {
+    setScanResults(`Scanning dataset: ${dataset}... Results found.`);
+  };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "20px" }}>
+      <h1>Darkweb Scanner</h1>
+      
+      {!loggedIn ? (
+        <Card style={{ padding: "20px", width: "300px" }}>
+          <CardContent style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+            <h2>Log in</h2>
+            <TextField
+              label="Account"
+              variant="outlined"
+              fullWidth
+              value={account}
+              onChange={(e) => setAccount(e.target.value)}
+            />
+            <TextField
+              type="password"
+              label="Password"
+              variant="outlined"
+              fullWidth
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button variant="contained" color="primary" onClick={handleLogin}>
+              Login
+            </Button>
+          </CardContent>
+        </Card>
+      ) : (
+        <Card style={{ padding: "20px", width: "300px" }}>
+          <CardContent style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+            <h2>Select Dataset</h2>
+            <Select
+              value={dataset}
+              onChange={(e) => setDataset(e.target.value)}
+              fullWidth
+            >
+              <MenuItem value="dataset1">Darkweb Dataset 1</MenuItem>
+              <MenuItem value="dataset2">Darkweb Dataset 2</MenuItem>
+              <MenuItem value="dataset3">Darkweb Dataset 3</MenuItem>
+            </Select>
+            <Button variant="contained" color="secondary" onClick={handleScan}>
+              Scan
+            </Button>
+            {scanResults && <p style={{ color: "green" }}>{scanResults}</p>}
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}

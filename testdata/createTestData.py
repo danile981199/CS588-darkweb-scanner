@@ -6,6 +6,7 @@ import ranDate
 import ranSSN
 import ranCCN
 import ranEmail
+import ranPNum
 
 
 def createFullSet():
@@ -13,6 +14,8 @@ def createFullSet():
     data_item = ranames.create_names(1)[0]
     data_item += ' - '
     data_item += ran_address.genRanAddr()
+    data_item += ' - '
+    data_item += ranPNum.gen_pn_2()
     data_item += ' - '
     data_item += ranDate.generate_random_date()
     data_item += ' - '

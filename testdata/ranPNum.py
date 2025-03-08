@@ -19,6 +19,15 @@ def generate_us_phone_number(form):
     else:
         return f"{area_code}{co_code}{s_number}"
 
+def gen_pn_2():
+    choice = random.randint(0,3)
+    if 0 == choice:
+        return generate_us_phone_number('d')
+    elif 1 == choice:
+        return generate_us_phone_number('p')
+    else:
+        return generate_us_phone_number('n')
+
 def main():
     # Generate and print  random US phone numbers
 

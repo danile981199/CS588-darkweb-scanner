@@ -14,6 +14,8 @@ def extract_emailAddr(input_file):
     for line in infile:
         email_addresses.extend(pattern.findall(line))
 
+    infile.close()
+
     return email_addresses
 
 def extract_email_PW(input_file):

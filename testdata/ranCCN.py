@@ -16,7 +16,7 @@ def gen_xDate():
      return m+'/'+y
 
 def genAMEX_CCnum():
-     # Amex is 15 digits with a four digit CVC
+     # Amex returns a 15 digit card number, a four digit CVC, and an expiration date
 
     f1 = generate_quad()
     f2 = generate_quad()
@@ -33,8 +33,7 @@ def genAMEX_CCnum():
 def genMCV_CCnum():
     # Generates a random MasterCard/Visa format credit card Number.
     # MC/Visa is 16 digit (four groups of four) with a three digit CVC
-    
-    # Date Format is mm/yy
+    # A Date formatted mm/yy is also returned
 
     q1 = generate_quad()
     q2 = generate_quad()

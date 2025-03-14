@@ -64,7 +64,7 @@ def main():
 
     data_set = []
     m = 15
-    fname = "test_data_full.txt"
+    fname = "test_data_EM_PW.txt"
     adrfile = open(fname,'a') 
 
     if len(sys.argv) > 1:
@@ -75,10 +75,10 @@ def main():
             print("using default of 5\n")
 
     for _ in range(m):
-        target = createFullSet()
+        #target = createFullSet()
         #target = createNameCCN()
         #target = createNameSSNDob()
-        #target = createEmalPW()
+        target = createEmalPW()
         print(target)
         adrfile.write(target + '\n')
 

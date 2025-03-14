@@ -1,3 +1,4 @@
+# Generate a rando US based phone number
 import random
 import sys
 

@@ -79,7 +79,5 @@ def main():
         ssnfile.write(ssn + '\n')
     '''
     
-
-
 if __name__ == '__main__':
 	main()

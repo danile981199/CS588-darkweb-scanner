@@ -1,35 +1,39 @@
+# Generates random credit card number, CVC, and expiration date
+# The expiration dates are in the range of 11 to 24
+
 import random
 import sys
 
 def generate_quad():
-    return f"{random.randint(0, 9999):04d}"
+    retVal = f"{random.randint(1,9):01d}"
+    retVal += f"{random.randint(0, 999):03d}"
+    return retVal
 
 def gen_xDate():
-     m = f"{random.randint(1,12):1d}"
-     y = f"{random.randint(29,35)}"
+     m = f"{random.randint(1,12):02d}"
+     y = f"{random.randint(1,24):02d}"
 
      return m+'/'+y
 
 def genAMEX_CCnum():
-     # Amex is 14 digits with a four digit CVC
+     # Amex returns a 15 digit card number, a four digit CVC, and an expiration date
 
     f1 = generate_quad()
     f2 = generate_quad()
     f3 = generate_quad()
-    f4 = f"{random.randint(0,99):02d}"
+    f4 = f"{random.randint(0,999):03}"
 
     first = f"{random.randint(1,9):01d}"
     next = f"{random.randint(0,999):03d}"
     cvc = first + next
 
-    return (f1+f2+f3+f4+' '+cvc + ' ' + gen_xDate())
+    return (f1+f2+f3+f4 +' '+cvc + ' ' + gen_xDate())
     
 
 def genMCV_CCnum():
     # Generates a random MasterCard/Visa format credit card Number.
     # MC/Visa is 16 digit (four groups of four) with a three digit CVC
-    
-    # Date Format is mm/yy
+    # A Date formatted mm/yy is also returned
 
     q1 = generate_quad()
     q2 = generate_quad()
@@ -56,8 +60,7 @@ def main():
     form = 'd'
     m = 1
     fname = 'ccNums.txt'
-    #ssnfile = open(fname,'a') 
-
+    
     if len(sys.argv) > 1:
         try:
             m = int(sys.argv[1])
@@ -65,19 +68,16 @@ def main():
             print("argument must be an integer\n")
             print("using default of 5\n")
 
-    #print(genMCV_CCnum())
-    #print(genAMEX_CCnum())
+    print(genMCV_CCnum())
+    print(genAMEX_CCnum())
     #print(gen_xDate())
-    print()
-
+    
     '''
     for _ in range(m):
         ssn = (generate_invalid_ssn(form))
         print(ssn)
         ssnfile.write(ssn + '\n')
     '''
-    #ccnfile.close()
-
-
+    
 if __name__ == '__main__':
 	main()

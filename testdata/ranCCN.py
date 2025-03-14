@@ -51,9 +51,9 @@ def genRanCCN():
      
      x = random.randint(0,3)
      if x > 0:
-          retVal = genMCV_CCnum() + ' ' + gen_xDate()
+          retVal = genMCV_CCnum() 
      else:
-          retVal = genAMEX_CCnum() + ' ' + gen_xDate()
+          retVal = genAMEX_CCnum() 
      return retVal
 
 def main():

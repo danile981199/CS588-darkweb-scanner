@@ -74,6 +74,7 @@ def main():
     data_set = []
     m = 15
     fname = "./randomData/test_data_NAPN.txt"
+    fname = "./randomData/fullSet.txt"
     adrfile = open(fname,'a') 
 
     if len(sys.argv) > 1:
@@ -84,11 +85,11 @@ def main():
             print("using default of 5\n")
 
     for _ in range(m):
-        #target = createFullSet()
+        target = createFullSet()
         #target = createNameCCN()
         #target = createNameSSNDob()
         #target = createEmalPW()
-        target = createNameAddrPN()
+        #target = createNameAddrPN()
         print(target)
         adrfile.write(target + '\n')
 

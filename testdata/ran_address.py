@@ -37,10 +37,10 @@ def genRanAddr():
     if 0 == random.randint(0,4):
         street += " "
         street += random.choice(street2)
-    if 0 == random.randint(0,1):
-        street += str(random.randint(1,50))
-    else:
-        street += random.choice(string.ascii_uppercase)
+        if 0 == random.randint(0,1):
+            street += str(random.randint(1,50))
+        else:
+            street += random.choice(string.ascii_uppercase)
 	
     city = random.choice(cities)
     tlstate = random.choice(stateList)

@@ -60,11 +60,20 @@ def createEmalPW():
     data_item += ranEmail.genPassword()
     return data_item
 
+def createNameAddrPN():
+    data_item = ""
+    data_item = ranames.create_names(1)[0]
+    data_item += ' - '
+    data_item += ran_address.genRanAddr()
+    data_item += ' - '
+    data_item += ranPNum.gen_pn_2()
+    return data_item
+
 def main():
 
     data_set = []
     m = 15
-    fname = "test_data_EM_PW.txt"
+    fname = "./randomData/test_data_NAPN.txt"
     adrfile = open(fname,'a') 
 
     if len(sys.argv) > 1:
@@ -78,7 +87,8 @@ def main():
         #target = createFullSet()
         #target = createNameCCN()
         #target = createNameSSNDob()
-        target = createEmalPW()
+        #target = createEmalPW()
+        target = createNameAddrPN()
         print(target)
         adrfile.write(target + '\n')
 

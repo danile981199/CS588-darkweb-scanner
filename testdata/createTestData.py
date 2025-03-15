@@ -75,7 +75,11 @@ def main():
     m = 15
     fname = "./randomData/test_data_NAPN.txt"
     fname = "./randomData/fullSet.txt"
-    adrfile = open(fname,'a') 
+    try:
+        adrfile = open(fname,'w') 
+    except:
+        print('Error opening file for writing.')
+        sys(exit)
 
     if len(sys.argv) > 1:
         try:

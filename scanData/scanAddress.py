@@ -1,35 +1,39 @@
 import re
+import sys
 
 def find_addr(infile):
-    address_pattern = re.compile(r"""
-        (\d+\s+                         # Building number
-        [\w\s]+                         # Street name
-        (?:\s+(?:Apt|Suite|#)\s*\w+)?   # Optional apartment/suite number
-        ,?\s*                             # Optional comma separator before city
-        [A-Za-z\s]+                      # City name
-        \s+                               # Space before state
-        [A-Z]{2}                          # State abbreviation
-        \s+                               # Space before ZIP code
-        \d{5}(?:-\d{4})?)                # ZIP code (5 or 5+4 format)
-    """, re.VERBOSE)
     
     addresses = []
-    with open(infile, 'r', encoding='utf-8') as file:
-        for line in file:
-            matches = address_pattern.findall(line)
-            addresses.extend(matches)
-    
+
+    try:
+         infile = open(infile,'r')
+    except:
+         print("Error opening file.")
+         sys.exit()
+
+
+    for line in infile:
+        match = re.search(r'\b(\d+[\w\s#.’’\-,]+)\s([A-Z]{2}\s\d{5}(?:-\d{4})?)\b', line)
+        if match:
+            addresses.append(match.group(1).strip() + ' ' + match.group(2).strip())
+
+    infile.close()
     return addresses
+
 
 
 def main():
      
-     sourceFile = "t1.txt"
+     sourceFile = "fullSet.txt"
      resultFile = "addResults.txt"
      adList = []
  
+     outFile = open(resultFile,'w')
      adList = find_addr(sourceFile)
-
+     for x in adList:
+          print(x)
+          outFile.write(x + '\n')
+     outFile.close()
      
 
 if __name__ == '__main__':

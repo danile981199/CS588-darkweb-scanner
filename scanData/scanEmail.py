@@ -44,9 +44,6 @@ def extract_email_PW(input_file):
 
     return results
 
-# Example usage:
-# emails = extract_email_addresses('sample.txt')
-# print(emails)
 
 def main():
      

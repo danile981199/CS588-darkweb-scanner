@@ -36,18 +36,31 @@ def overwrite_delete(input_file, passes=3):
         print(f"Error during file deletion: {e}")
         return False
 
-# Example usage:
-# overwrite_delete('sensitive_data.txt', passes=1)
+def overwrite_directory(directory):
+
+    if not os.path.isdir(directory):
+        print(f"Error: {directory} is not a valid directory.")
+        return
+    
+    for filename in os.listdir(directory):
+        file_path = os.path.join(directory, filename)
+        
+        if os.path.isfile(file_path):
+            overwrite_delete(file_path)
 
 def main():
      
+     overwrite_directory('./result')
+     '''
      delFile = "emResults.txt"
      passes = 3
      if overwrite_delete(delFile,passes):
           print(f"File '{delFile}' securely deleted with {passes} passes.")
      else:
           print(f"Error during file deletion: {delFile}")
-
+    '''
+     
+    
 
 
 if __name__ == '__main__':

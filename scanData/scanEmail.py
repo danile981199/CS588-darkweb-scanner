@@ -47,7 +47,8 @@ def extract_email_PW(input_file):
 
 def main():
      
-     sourceFile = "Test1.txt"
+     #sourceFile = "Test1.txt"
+     sourceFile = "fubar.txt"
      resultFile = "emResults.txt"
      emList = []
      both = []
@@ -58,7 +59,7 @@ def main():
      
      both = extract_email_PW(sourceFile)
      for x in both:
-         print(x)
+         print(x+"\n")
 
 if __name__ == '__main__':
 	main()

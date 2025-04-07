@@ -55,9 +55,12 @@ def dwScrape(url):
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, "html.parser")
             extracted_text = soup.get_text()
+ 
+            with open("rawText.txt", 'w') as rFile:
+                rFile.write(extracted_text)
 
             # Extract PII from the scraped data
-            pii_data = extract_pii(extracted_text)
+            pii_data = extract_pii(extracted_text) 
 
             if pii_data:
                 print(" PII Found!")
@@ -71,7 +74,7 @@ def dwScrape(url):
                     for category, matches in pii_data.items():
                         file.write(f"{category}:\n")
                         for match in matches:
-                            file.write(f"   - {match}\n")
+                            file.write(f"{match}\n")
                 
                 print(" Extracted PII saved in 'darkweb_pii_extracted.txt'")
 
@@ -115,8 +118,8 @@ def simpleScrape(url):
 
 def main():
     
-    #dwScrape(url)
-    simpleScrape(url)
+    dwScrape(url)
+    #simpleScrape(url)
 
 
 if __name__ == '__main__':

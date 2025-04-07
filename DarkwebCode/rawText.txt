@@ -4,7 +4,7 @@
 
 
 
-Bad Email   CSec Testing
+Bad Email – CSec Testing
 
 
 
@@ -83,7 +83,7 @@ Bad Email   CSec Testing
 
 
 CSec Testing
-It s not real data
+It’s not real data
 
 
 
@@ -103,7 +103,7 @@ Cybersecurity Testing
 Invalid Credit Data
 Invalid Email
 Invalid SSNs
-Name Address Phone Number
+Name Address Phone Number
 
 
 about
@@ -127,6 +127,7 @@ Woolfreference190@earthlink.com innovativedollaryoung-109Berkpacket887@gmail.com
 
 
 Invalid data for White Hat cybersecurity training
+
 
 
 
@@ -178,6 +179,11 @@ Subscribed
 
 
 
+
+
+
+
+ Privacy						
 
 
 

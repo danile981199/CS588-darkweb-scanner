@@ -48,7 +48,7 @@ def extract_email_PW(input_file):
 def main():
      
      #sourceFile = "Test1.txt"
-     sourceFile = "fubar.txt"
+     sourceFile = "rawText.txt"
      resultFile = "emResults.txt"
      emList = []
      both = []

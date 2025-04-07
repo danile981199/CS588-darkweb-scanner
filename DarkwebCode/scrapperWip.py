@@ -59,6 +59,9 @@ def dwScrape(url):
             # Extract PII from the scraped data
             pii_data = extract_pii(extracted_text)
 
+	    with open("rawText.txt", 'w') as rFile:
+                rFile.write(extracted_text)
+
             if pii_data:
                 print(" PII Found!")
                 for category, matches in pii_data.items():

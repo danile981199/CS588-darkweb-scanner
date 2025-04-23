@@ -1,0 +1,15 @@
+[Configuration File]
+[Specified Data – if not selected the field will be blank]
+URL: 
+Specified_Name:
+Specified_Address:
+Specified_Phone:
+Specified_SSN:
+Specified_CCN:
+
+[Generic Data - 1 if selected, otherwise blank or 0]
+Name:
+Address
+Phone:
+SSN:
+CCN:

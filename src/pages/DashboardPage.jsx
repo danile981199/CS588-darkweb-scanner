@@ -12,14 +12,12 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  Avatar,
-  Tab,
-  Tabs
+  Avatar
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import FlightIcon from '@mui/icons-material/Flight';
 import PersonIcon from '@mui/icons-material/Person';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import Logo from "../assets/images/dark-web/darkweb_logo.png";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -31,36 +29,34 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const DashboardPage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [tabValue, setTabValue] = useState(0);
+  const [searchHistory, setSearchHistory] = useState([]);
 
   useEffect(() => {
-    // Check if user is logged in
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
-    
+    const historyData = localStorage.getItem('searchHistory');
+
     if (!token || !userData) {
       navigate('/login');
       return;
     }
-    
+
     setUser(JSON.parse(userData));
-    setIsLoading(false);
+
+    if (historyData) {
+      setSearchHistory(JSON.parse(historyData));
+    }
   }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('searchHistory');
     navigate('/login');
   };
 
-  const handleBookFlight = () => {
-    navigate('/search-flights');
-  };
-
-  const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
+  const handleSearchPersonalInfo = () => {
+    navigate('/search-personal-info');
   };
 
   if (!user) {
@@ -68,21 +64,24 @@ const DashboardPage = () => {
   }
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ my: 4 }}>
+    <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ my: 4, width: '100%' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-          <Typography component="h1" variant="h4" color="primary">
-            My Dashboard
-          </Typography>
-          <Button variant="outlined" onClick={handleLogout}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mx: 'auto' }}>
+            <img src={Logo} alt="Dark Web Logo" style={{ width: 80, height: 90 }} />
+            <Typography component="h1" variant="h4" color="primary" sx={{ fontFamily: 'Times New Roman, serif' }}>
+              My Dashboard
+            </Typography>
+          </Box>
+
+          <Button variant="outlined" onClick={handleLogout} sx={{ fontFamily: 'Times New Roman, serif' }}>
             Logout
           </Button>
         </Box>
 
         <Grid container spacing={3}>
-          {/* User Profile Section */}
-          <Grid item xs={12} md={4}>
-            <StyledPaper>
+          <Grid item xs={12} md={6}>
+            <StyledPaper sx={{ fontFamily: 'Times New Roman, serif' }}>
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 3 }}>
                 <Avatar 
                   sx={{ 
@@ -94,16 +93,16 @@ const DashboardPage = () => {
                 >
                   <PersonIcon fontSize="large" />
                 </Avatar>
-                <Typography variant="h5">
+                <Typography variant="h5" sx={{ fontFamily: 'Times New Roman, serif' }}>
                   {user.firstName || 'John'} {user.lastName || 'Doe'}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" sx={{ fontFamily: 'Times New Roman, serif' }}>
                   {user.email || 'user@example.com'}
                 </Typography>
               </Box>
-              
+
               <Divider sx={{ my: 2 }} />
-              
+
               <List>
                 <ListItem>
                   <ListItemIcon>
@@ -112,6 +111,8 @@ const DashboardPage = () => {
                   <ListItemText 
                     primary="Account Details" 
                     secondary="Manage your personal information"
+                    primaryTypographyProps={{ sx: { fontFamily: 'Times New Roman, serif' } }}
+                    secondaryTypographyProps={{ sx: { fontFamily: 'Times New Roman, serif' } }}
                   />
                 </ListItem>
                 <ListItem>
@@ -119,84 +120,50 @@ const DashboardPage = () => {
                     <CalendarTodayIcon />
                   </ListItemIcon>
                   <ListItemText 
-                    primary="Travel History" 
-                    secondary="View your trips"
+                    primary="Activity Logs" 
+                    secondary="View your recent activities"
+                    primaryTypographyProps={{ sx: { fontFamily: 'Times New Roman, serif' } }}
+                    secondaryTypographyProps={{ sx: { fontFamily: 'Times New Roman, serif' } }}
                   />
                 </ListItem>
               </List>
-              
+
               <Box sx={{ mt: 3 }}>
                 <Button 
                   variant="contained" 
                   fullWidth 
-                  onClick={handleBookFlight}
-                  sx={{ py: 1.5 }}
+                  onClick={handleSearchPersonalInfo}
+                  sx={{ py: 1.5, fontFamily: 'Times New Roman, serif' }}
                 >
-                  Book a New Flight
+                  Search Personal Information
                 </Button>
               </Box>
             </StyledPaper>
           </Grid>
-          
-          {/* Bookings Section */}
-          <Grid item xs={12} md={8}>
-            <StyledPaper>
-              <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
-                <Tabs 
-                  value={tabValue} 
-                  onChange={handleTabChange}
-                  variant="fullWidth"
-                >
-                  <Tab label="Upcoming Trips" />
-                  <Tab label="Past Trips" />
-                </Tabs>
-              </Box>
-              
-              {error && (
-                <Typography color="error" sx={{ mt: 2, mb: 2 }}>
-                  {error}
-                </Typography>
-              )}
-              
-              {isLoading ? (
-                <Typography>Loading your bookings...</Typography>
-              ) : (
-                <>
-                  {tabValue === 0 && (
-                    <>
-                      <Typography variant="h6" sx={{ mb: 2 }}>
-                        Your Upcoming Trips
-                      </Typography>
-                      
-                      <Box sx={{ textAlign: 'center', py: 4 }}>
-                        <Typography variant="body1" sx={{ mb: 2 }}>
-                          You don't have any upcoming trips.
-                        </Typography>
-                        <Button 
-                          variant="contained" 
-                          onClick={handleBookFlight}
-                        >
-                          Book a Flight
-                        </Button>
-                      </Box>
-                    </>
-                  )}
-                  
-                  {tabValue === 1 && (
-                    <>
-                      <Typography variant="h6" sx={{ mb: 2 }}>
-                        Your Past Trips
-                      </Typography>
-                      
-                      <Box sx={{ textAlign: 'center', py: 4 }}>
-                        <Typography variant="body1">
-                          No past trips to display.
-                        </Typography>
-                      </Box>
-                    </>
-                  )}
-                </>
-              )}
+
+          <Grid item xs={12} md={6}>
+            <StyledPaper sx={{ fontFamily: 'Times New Roman, serif', minHeight: 300 }}>
+              <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Times New Roman, serif' }}>
+                Search History
+              </Typography>
+              <List>
+                {searchHistory.length > 0 ? (
+                  searchHistory.map((item, index) => (
+                    <ListItem key={index}>
+                      <ListItemText 
+                        primary={`Type: ${item.type}`} 
+                        secondary={`URL: ${item.url}`}
+                        primaryTypographyProps={{ sx: { fontFamily: 'Times New Roman, serif' } }}
+                        secondaryTypographyProps={{ sx: { fontFamily: 'Times New Roman, serif' } }}
+                      />
+                    </ListItem>
+                  ))
+                ) : (
+                  <Typography variant="body2" color="text.secondary" sx={{ fontFamily: 'Times New Roman, serif' }}>
+                    No search history yet.
+                  </Typography>
+                )}
+              </List>
             </StyledPaper>
           </Grid>
         </Grid>
@@ -206,3 +173,4 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
+

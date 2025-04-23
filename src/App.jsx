@@ -5,9 +5,10 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import DashboardPage from './pages/DashboardPage';
-import FlightDetailsPage from './pages/FlightDetailsPage';
-import SearchFlightsPage from "./pages/SearchFlightsPage.jsx";
+import SearchPersonalInfoPage from './pages/SearchPersonalInfoPage';
+
 import './App.css';
+
 function App() {
   return (
     <BrowserRouter>
@@ -16,16 +17,12 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        
-        {/* Flight pages */}
-        <Route path="/flight/:flightId" element={<FlightDetailsPage />} />
-        <Route path="/search-flights" element={<SearchFlightsPage/>} />
-        <Route path="/booking/:flightId" element={<Navigate to="/dashboard" replace />} />
-        
-        {/* Protected pages */}
+
+        {/* Core dashboard and personal info */}
         <Route path="/dashboard" element={<DashboardPage />} />
-        
-        {/* Default route - redirect to login */}
+        <Route path="/search-personal-info" element={<SearchPersonalInfoPage />} />
+
+        {/* Redirects */}
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>

@@ -116,10 +116,64 @@ def simpleScrape(url):
         print(f"Error fetching the URL: {e}")
 
 
+def get_url():
+    targetUrl = input("Please enter a URL to scan: ")
+    return targetUrl
+
+def create_blank_config_file(file_path):
+    template_content = """[Configuration File]
+[Specified Data – if not selected the field will be blank]
+URL: 
+Specified_Name:
+Specified_Address:
+Specified_Phone:
+Specified_SSN:
+Specified_CCN:
+
+[Generic Data - 1 if selected, otherwise blank or 0]
+Name:
+Address
+Phone:
+SSN:
+CCN:
+"""
+    try:
+        with open(file_path, 'w') as new_file:  # 'w' mode overwrites if file exists
+            new_file.write(template_content)
+        print(f"Config file created (or overwritten) at: {file_path}")
+    except Exception as e:
+        print(f"Error: {e}")
+
+def update_url(file_path, addition):
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+
+    updated_lines = []
+    for line in lines:
+        if line.startswith("URL:"):
+            line = line.rstrip()  # Remove trailing newline
+            if line.strip() == "URL:":
+                line += f" {addition}"
+            else:
+                line += f" {addition}"
+            line += "\n"  # Re-add newline
+        updated_lines.append(line)
+
+    with open(file_path, 'w') as file:
+        file.writelines(updated_lines)
+
+
 def main():
     
-    #dwScrape(url)
-    simpleScrape(url)
+    scanTarget = get_url()
+    print(scanTarget)
+
+    create_blank_config_file("./config/configFile.txt")
+
+    update_url("./config/ConfigFile.txt",scanTarget)
+
+    #dwScrape(scanTarget)
+    #simpleScrape(scanTarget)
 
 
 if __name__ == '__main__':

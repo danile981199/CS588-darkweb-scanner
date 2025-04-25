@@ -59,6 +59,9 @@ def dwScrape(url):
             # Extract PII from the scraped data
             pii_data = extract_pii(extracted_text)
 
+             # Create 'Results' directory if it doesn't exist
+             os.makedirs("Results", exist_ok=True)
+		
             with open("./Results/rawText.txt", 'w') as rFile:
                 rFile.write(extracted_text)
 
@@ -68,9 +71,6 @@ def dwScrape(url):
                     print(f"\n🔹 {category}:")
                     for match in matches:
                         print(f"   - {match}")
-
-                # Create 'Results' directory if it doesn't exist
-                os.makedirs("Results", exist_ok=True)
 
                 # Save the PII data securely
                 with open(os.path.join("Results", "darkweb_pii_extracted.txt"), "w", encoding="utf-8") as file:

@@ -59,8 +59,8 @@ def dwScrape(url):
             # Extract PII from the scraped data
             pii_data = extract_pii(extracted_text)
 
-             # Create 'Results' directory if it doesn't exist
-             os.makedirs("Results", exist_ok=True)
+            # Create 'Results' directory if it doesn't exist
+            os.makedirs("Results", exist_ok=True)
 		
             with open("./Results/rawText.txt", 'w') as rFile:
                 rFile.write(extracted_text)
@@ -95,7 +95,7 @@ def dwScrape(url):
 def simpleScrape(url):
 
     print("url = ", url)
-    fileName = 'fubar.txt'
+    fileName = './Results/fubar.txt'
     try:
         # Fetch the webpage
         response = requests.get(url)

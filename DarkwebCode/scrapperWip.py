@@ -69,8 +69,11 @@ def dwScrape(url):
                     for match in matches:
                         print(f"   - {match}")
 
+                # Create 'Results' directory if it doesn't exist
+                os.makedirs("Results", exist_ok=True)
+
                 # Save the PII data securely
-                with open("darkweb_pii_extracted.txt", "w", encoding="utf-8") as file:
+                with open(os.path.join("Results", "darkweb_pii_extracted.txt"), "w", encoding="utf-8") as file:
                     for category, matches in pii_data.items():
                         file.write(f"{category}:\n")
                         for match in matches:

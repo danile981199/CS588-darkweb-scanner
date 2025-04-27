@@ -18,6 +18,14 @@ def find_addr(data_file):
             addresses.append(match.group(1).strip() + ' ' + match.group(2).strip())
 
     infile.close()
+
+    addrFile = 'addressList.txt'
+    subDir = 'Results'
+    filePath = os.path.join(subDir,addrFile)
+    with open(filePath, 'w') as file:
+        for item in addresses:
+            file.write(f"{item}\n") 
+
     return addresses
 
 def find_names(data_file):
@@ -35,6 +43,14 @@ def find_names(data_file):
             names.append(match.group(1).strip())
 
     infile.close()
+
+    nameFile = 'nameList.txt'
+    subDir = 'Results'
+    filePath = os.path.join(subDir,nameFile)
+    with open(filePath, 'w') as file:
+        for item in names:
+            file.write(f"{item}\n")
+
     return names
 
 

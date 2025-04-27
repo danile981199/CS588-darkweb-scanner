@@ -1,5 +1,6 @@
 import re
 import sys
+import os 
 
 def extract_emailAddr(input_file):
     pattern = re.compile(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')
@@ -15,6 +16,13 @@ def extract_emailAddr(input_file):
         email_addresses.extend(pattern.findall(line))
 
     infile.close()
+
+    emFile = 'emList.txt'
+    subDir = 'Results'
+    filePath = os.path.join(subDir,empwFile)
+    with open(filePath, 'w') as file:
+        for item in email_addresses:
+            file.write(f"{item}\n")
 
     return email_addresses
 
@@ -41,6 +49,13 @@ def extract_email_PW(input_file):
     except Exception as e:
         print(f"Error opening {input_file}: {e}")
         sys.exit()
+
+    empwFile = 'empwList.txt'
+    subDir = 'Results'
+    filePath = os.path.join(subDir,empwFile)
+    with open(filePath, 'w') as file:
+        for item in results:
+            file.write(f"{item}\n")
 
     return results
 

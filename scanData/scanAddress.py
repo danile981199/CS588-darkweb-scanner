@@ -22,6 +22,7 @@ def find_addr(data_file):
 
     addrFile = 'addressList.txt'
     subDir = 'Results'
+    os.makedirs(subDir, exist_ok=True)
     filePath = os.path.join(subDir,addrFile)
     with open(filePath, 'w') as file:
         for item in addresses:

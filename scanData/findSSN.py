@@ -1,5 +1,6 @@
 import re
 import sys
+import os
 
 def extract_SSN(input_file, output_file):
     # Define regex patterns for 9-digit numbers
@@ -19,6 +20,14 @@ def extract_SSN(input_file, output_file):
         found_numbers.extend(pattern2.findall(line))
 
     infile.close()
+
+    ssnFile = 'ssnList.txt'
+    subDir = 'Results'
+    os.makedirs(subDir, exist_ok=True)
+    filePath = os.path.join(subDir,ssnFile)
+    with open(filePath, 'w') as file:
+        for item in found_numbers:
+            file.write(f"{item}\n") 
 
     print(f"{len(found_numbers)} SSNs found\n")
     return found_numbers
@@ -44,7 +53,7 @@ def main():
 
      ssnList = extract_SSN(sourceFile,resultFile)
 
-     writeResults(ssnList, resultFile)
+     #writeResults(ssnList, resultFile)
 
 if __name__ == '__main__':
 	main()

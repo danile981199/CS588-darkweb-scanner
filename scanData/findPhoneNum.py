@@ -1,5 +1,6 @@
 import re
 import sys
+import os
 
 def extract_PN(input_file):
     
@@ -11,24 +12,18 @@ def extract_PN(input_file):
             phone_numbers.extend(pattern.findall(line))
     
     print(f"{len(phone_numbers)} Phone numbers found\n")
-    return phone_numbers
-    '''
-    try:
-        infile = open(input_file,'r')
-    except:
-        print('error opening ',input_file)
-        sys.exit()
+
     
-    for line in infile:
-        found_numbers.extend(pattern1.findall(line))
-        found_numbers.extend(pattern2.findall(line))
-        found_numbers.extend(pattern3.findall(line))
+    pnFile = 'phoneList.txt'
+    subDir = 'Results'
+    os.makedirs(subDir, exist_ok=True)
+    filePath = os.path.join(subDir,pnFile)
+    with open(filePath, 'w') as file:
+        for item in phone_numbers:
+            file.write(f"{item}\n") 
 
-    infile.close()
+    return phone_numbers
 
-    print(f"{len(found_numbers)} SSNs found\n")
-    return found_numbers'
-    '''
 
 def writeResults(slist,fName):
      
@@ -51,7 +46,7 @@ def main():
 
      pnList = extract_PN(sourceFile)
 
-     writeResults(pnList, resultFile)
+    #writeResults(pnList, resultFile)
 
 if __name__ == '__main__':
 	main()

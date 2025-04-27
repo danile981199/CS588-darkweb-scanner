@@ -173,9 +173,9 @@ def main():
 
     create_blank_config_file("./config/configFile.txt")
 
-    update_url("./config/ConfigFile.txt",scanTarget)
+    update_url("./config/configFile.txt",scanTarget)
 
-    #dwScrape(scanTarget)
+    dwScrape(scanTarget)
     #simpleScrape(scanTarget)
 
 

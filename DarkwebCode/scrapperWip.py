@@ -176,8 +176,8 @@ def main():
 
     update_url("./config/configFile.txt",scanTarget)
 
-    dwScrape(scanTarget)
-    #simpleScrape(scanTarget)
+    #dwScrape(scanTarget)
+    simpleScrape(scanTarget)
 
 
 if __name__ == '__main__':

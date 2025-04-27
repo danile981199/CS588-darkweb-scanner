@@ -32,15 +32,15 @@ def find_names(data_file):
 def main():
      
      sourceFile = "fullSet.txt"
-     r2File = "nameResults.txt"
+     #r2File = "nameResults.txt"
      adList = []
      nameList=[]
      
-     out2File = open(r2File,'w')
+     #out2File = open(r2File,'w')
      nameList = find_names(sourceFile)
      for x in nameList:
           print(x)
-     out2File.close()
+     #out2File.close()
 
 if __name__ == '__main__':
 	main()

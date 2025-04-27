@@ -64,12 +64,12 @@ def main():
 
      adList = []
 
-     outFile = open(resultFile,'w')
+     #outFile = open(resultFile,'w')
      adList = find_addr(sourceFile)
      for x in adList:
           print(x)
-          outFile.write(x + '\n')
-     outFile.close()
+          #outFile.write(x + '\n')
+     #outFile.close()
     
 
 

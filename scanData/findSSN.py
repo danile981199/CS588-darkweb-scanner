@@ -47,7 +47,7 @@ def writeResults(slist,fName):
 
 def main():
      
-     sourceFile = "Test1.txt"
+     sourceFile = "fullSet.txt"
      resultFile = "Results.txt"
      ssnList = []
 

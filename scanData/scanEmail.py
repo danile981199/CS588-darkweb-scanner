@@ -19,7 +19,7 @@ def extract_emailAddr(input_file):
 
     emFile = 'emList.txt'
     subDir = 'Results'
-    filePath = os.path.join(subDir,empwFile)
+    filePath = os.path.join(subDir,emFile)
     with open(filePath, 'w') as file:
         for item in email_addresses:
             file.write(f"{item}\n")

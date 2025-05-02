@@ -50,14 +50,22 @@ def overwrite_directory(directory):
 
 def main():
      
-     overwrite_directory('./result')
-     '''
-     delFile = "emResults.txt"
-     passes = 3
-     if overwrite_delete(delFile,passes):
-          print(f"File '{delFile}' securely deleted with {passes} passes.")
-     else:
-          print(f"Error during file deletion: {delFile}")
+    dir1 = './Results'
+    dir2 = './config'
+    print("overwriting ",dir1)
+    print("overwriting ",dir2)
+
+    overwrite_directory(dir1)
+    overwrite_directory(dir2)
+
+    print("Overwrite deletion complete")
+    '''
+    delFile = "emResults.txt"
+    passes = 3
+    if overwrite_delete(delFile,passes):
+        print(f"File '{delFile}' securely deleted with {passes} passes.")
+    else:
+        print(f"Error during file deletion: {delFile}")
     '''
      
     

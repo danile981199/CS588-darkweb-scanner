@@ -34,7 +34,6 @@ const DashboardPage = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
-    const historyData = localStorage.getItem('searchHistory');
 
     if (!token || !userData) {
       navigate('/login');
@@ -43,15 +42,23 @@ const DashboardPage = () => {
 
     setUser(JSON.parse(userData));
 
-    if (historyData) {
-      setSearchHistory(JSON.parse(historyData));
-    }
+    // Fetch real-time search history from backend
+    const fetchHistory = async () => {
+      try {
+        const res = await fetch("http://localhost:5050/api/search-history");
+        const data = await res.json();
+        setSearchHistory(data);
+      } catch (err) {
+        console.error("Failed to load search history:", err);
+      }
+    };
+
+    fetchHistory();
   }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    localStorage.removeItem('searchHistory');
     navigate('/login');
   };
 
@@ -59,9 +66,7 @@ const DashboardPage = () => {
     navigate('/search-personal-info');
   };
 
-  if (!user) {
-    return null; // Will redirect to login in useEffect
-  }
+  if (!user) return null;
 
   return (
     <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -84,12 +89,7 @@ const DashboardPage = () => {
             <StyledPaper sx={{ fontFamily: 'Times New Roman, serif' }}>
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 3 }}>
                 <Avatar 
-                  sx={{ 
-                    width: 80, 
-                    height: 80, 
-                    bgcolor: 'primary.main',
-                    mb: 2
-                  }}
+                  sx={{ width: 80, height: 80, bgcolor: 'primary.main', mb: 2 }}
                 >
                   <PersonIcon fontSize="large" />
                 </Avatar>
@@ -105,9 +105,7 @@ const DashboardPage = () => {
 
               <List>
                 <ListItem>
-                  <ListItemIcon>
-                    <PersonIcon />
-                  </ListItemIcon>
+                  <ListItemIcon><PersonIcon /></ListItemIcon>
                   <ListItemText 
                     primary="Account Details" 
                     secondary="Manage your personal information"
@@ -116,9 +114,7 @@ const DashboardPage = () => {
                   />
                 </ListItem>
                 <ListItem>
-                  <ListItemIcon>
-                    <CalendarTodayIcon />
-                  </ListItemIcon>
+                  <ListItemIcon><CalendarTodayIcon /></ListItemIcon>
                   <ListItemText 
                     primary="Activity Logs" 
                     secondary="View your recent activities"
@@ -142,18 +138,24 @@ const DashboardPage = () => {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <StyledPaper sx={{ fontFamily: 'Times New Roman, serif', minHeight: 300 }}>
+            <StyledPaper sx={{ fontFamily: 'Times New Roman, serif', height: 300, overflowY: 'auto' }}>
               <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Times New Roman, serif' }}>
                 Search History
               </Typography>
               <List>
                 {searchHistory.length > 0 ? (
                   searchHistory.map((item, index) => (
-                    <ListItem key={index}>
-                      <ListItemText 
-                        primary={`Type: ${item.type}`} 
-                        secondary={`URL: ${item.url}`}
-                        primaryTypographyProps={{ sx: { fontFamily: 'Times New Roman, serif' } }}
+                    <ListItem key={index} alignItems="flex-start">
+                      <ListItemText
+                        primary={`Type: ${item.type} | URL: ${item.url}`}
+                        secondary={
+                          item.results?.length ? (
+                            <Box component="div" sx={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>
+                              {item.results.map((line, i) => <div key={i}>• {line}</div>)}
+                            </Box>
+                          ) : "No result output."
+                        }
+                        primaryTypographyProps={{ sx: { fontFamily: 'Times New Roman, serif', fontWeight: 'bold' } }}
                         secondaryTypographyProps={{ sx: { fontFamily: 'Times New Roman, serif' } }}
                       />
                     </ListItem>

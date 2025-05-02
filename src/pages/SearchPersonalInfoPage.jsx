@@ -1,50 +1,54 @@
 import React, { useState } from 'react';
 import { Container, Typography, Box, MenuItem, Select, FormControl, InputLabel, Button, TextField, Link, Paper } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import Logo from "../assets/images/dark-web/darkweb_logo.png";
-
 
 const SearchPersonalInfoPage = () => {
   const [infoType, setInfoType] = useState('');
   const [url, setUrl] = useState('');
+  const navigate = useNavigate();
 
   const handleSearch = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/search-info', {
+      const response = await fetch('http://127.0.0.1:5050/api/search-info', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: infoType, url }),
       });
 
-      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json();
+      console.log("Backend response:", data); // 👀 Debug
 
-      const blob = await response.blob();
-      const downloadUrl = window.URL.createObjectURL(new Blob([blob]));
-      const link = document.createElement('a');
-      link.href = downloadUrl;
-      link.setAttribute('download', `configuration.txt`);
-      document.body.appendChild(link);
-      link.click();
-      link.parentNode.removeChild(link);
+      if (response.ok && data.results) {
+        alert('Search complete!');
 
+        localStorage.setItem('lastResult', JSON.stringify({
+          url,
+          type: infoType,
+          results: typeof data.results === 'string' ? data.results.split('\n') : data.results,
+          config: data.config || ''
+        }));
+
+        navigate('/results');
+      } else {
+        alert('Search failed.');
+      }
     } catch (error) {
-      console.error('Error fetching the search results:', error);
-      alert('An error occurred while fetching the search results.');
+      console.error('Search error:', error);
+      alert('An error occurred while searching.');
     }
   };
 
   return (
     <Container maxWidth="sm">
       <Paper elevation={3} sx={{ p: 4, my: 5, borderRadius: 2 }}>
-        
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}> 
           <img src={Logo} alt="Dark Web Logo" style={{ width: 80, height: 80 }} />
         </Box>
-        
+
         <Typography variant="h5" gutterBottom align="center" sx={{ mb: 5, fontFamily: 'Times New Roman, serif' }}>
           Search Personal Information
         </Typography>
-
-
 
         <TextField
           fullWidth
@@ -63,12 +67,12 @@ const SearchPersonalInfoPage = () => {
           sx={{ mb: 3, fontFamily: 'Times New Roman, serif' }}
         />
 
-        <FormControl fullWidth variant="outlined" sx={{ mb: 3, fontFamily: 'Times New Roman, serif'  }}>
+        <FormControl fullWidth variant="outlined" sx={{ mb: 3, fontFamily: 'Times New Roman, serif' }}>
           <InputLabel id="info-type-label">Information Type</InputLabel>
           <Select
-            labelId="info-type-label" 
+            labelId="info-type-label"
             value={infoType}
-            label="Information Type" 
+            label="Information Type"
             onChange={(e) => setInfoType(e.target.value)}
           >
             <MenuItem value="ssn">SSN</MenuItem>
@@ -90,6 +94,15 @@ const SearchPersonalInfoPage = () => {
           sx={{ py: 1.5, borderRadius: 1 }}
         >
           Search
+        </Button>
+
+        <Button
+          variant="outlined"
+          fullWidth
+          sx={{ mt: 2 }}
+          onClick={() => navigate('/results')}
+        >
+          View Results
         </Button>
       </Paper>
     </Container>

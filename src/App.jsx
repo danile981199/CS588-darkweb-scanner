@@ -6,6 +6,10 @@ import SignupPage from './pages/SignupPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import DashboardPage from './pages/DashboardPage';
 import SearchPersonalInfoPage from './pages/SearchPersonalInfoPage';
+import ResultPage from './pages/ResultPage';
+
+
+
 
 import './App.css';
 
@@ -25,6 +29,7 @@ function App() {
         {/* Redirects */}
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="/results" element={<ResultPage />} />
       </Routes>
     </BrowserRouter>
   );
